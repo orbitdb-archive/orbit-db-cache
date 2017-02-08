@@ -1,0 +1,20 @@
+{
+  "name": "orbit-db-cache",
+  "version": "0.0.5",
+  "description": "Local cache for orbit-db",
+  "main": "Cache.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Haad",
+  "license": "MIT",
+  "browser": {
+    "fs-pull-blob-store": "idb-pull-blob-store"
+  },
+  "dependencies": {
+    "fs-pull-blob-store": "~0.4.1",
+    "idb-pull-blob-store": "~0.5.1",
+    "lock": "~0.1.3",
+    "pull-stream": "~3.5.0"
+  }
+}
