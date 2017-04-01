@@ -5,9 +5,9 @@ const BlobStore = require('fs-pull-blob-store')
 const Lock = require('lock')
 
 class Cache {
-  constructor(path, dbname = '') {
-    this.path = path || './orbit-db'
-    this.filename = dbname + 'orbit.db'
+  constructor(path, dbname = 'data') {
+    this.path = path || './orbitdb'
+    this.filename = dbname + '.orbitdb'
     this._store = new BlobStore(this.path)
     this._cache = {}
     this._lock = new Lock()
