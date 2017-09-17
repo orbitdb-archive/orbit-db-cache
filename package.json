@@ -1,6 +1,6 @@
 {
   "name": "orbit-db-cache",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Local cache for orbit-db",
   "main": "Cache.js",
   "scripts": {
