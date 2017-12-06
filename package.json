@@ -8,13 +8,8 @@
   },
   "author": "Haad",
   "license": "MIT",
-  "browser": {
-    "fs-pull-blob-store": "idb-pull-blob-store"
-  },
   "dependencies": {
-    "fs-pull-blob-store": "~0.4.1",
-    "idb-pull-blob-store": "~0.5.1",
-    "lock": "~0.1.4",
-    "pull-stream": "~3.6.1"
+    "level": "^2.1.0",
+    "mkdirp": "^0.5.1"
   }
 }
