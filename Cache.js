@@ -1,79 +1,91 @@
 'use strict'
 
-const pull = require('pull-stream')
-const BlobStore = require('fs-pull-blob-store')
-const Lock = require('lock')
+const path = require('path')
+const mkdirp = require('mkdirp')
+const level = require('level')
+
+let caches = {}
 
 class Cache {
-  constructor(path, dbname = 'data') {
-    this.path = path || './orbitdb'
-    this.filename = dbname + '.orbitdb'
-    this._store = new BlobStore(this.path)
-    this._cache = {}
-    this._lock = new Lock()
+  static async load (directory, dbAddress) {
+    const dbPath = path.join(dbAddress.root, dbAddress.path)
+    const dataPath = path.join(directory, dbPath)
+    let cache = caches[dataPath]
+    if (!cache) {
+      cache = new Cache(dataPath, dbAddress.toString())
+      caches[dataPath] = cache
+      await cache.load()
+    }
+    return cache
   }
 
-  get(key) {
-    return this._cache[key]
+  static async close () {
+    return Promise.all(Object.values(caches), cache => cache.close())
+      .then(() => caches = {})
+  }
+
+  constructor (directory, id) {
+    this.path = directory || './orbitdb'
+    this.id = id
+    this._store = null
+    this._cache = {}
+  }
+
+  async close () {
+    await this._store.close()
+    this._store = null
+  }
+
+  async get(key) {
+    if (!this._store)
+      await this.load()
+
+    return new Promise((resolve, reject) => {
+      this._store.get(key, (err, value) => {
+        if (err) {
+          // Ignore error if key was not found
+          if (err.toString().indexOf('NotFoundError: Key not found in database') === -1)
+            return reject(err)
+        }
+        resolve(value ? JSON.parse(value) : null)
+      })
+    })
   }
 
   // Set value in the cache and return the new value
-  set(key, value) {
+  async set(key, value) {
+    if (!this._store)
+      await this.load()
+
+    return this._store.put(key, JSON.stringify(value))
+  }
+
+  // Remove a value and key from the cache
+  async del (key) {
+    if (!this._store)
+      await this.load()
+
     return new Promise((resolve, reject) => {
-      if (this._cache[key] === value)
-        return resolve(value)
-
-      this._cache[key] = value
-      this._lock(this.filename, (release) => {
-        pull(
-          pull.values([this._cache]),
-          pull.map((v) => JSON.stringify(v, null, 2)),
-          this._store.write(this.filename, release((err) => {
-            if (err) {
-              return reject(err)
-            }
-
-            resolve(value)
-          }))
-        )
+      this._store.del(key, (err, value) => {
+        if (err) {
+          // Ignore error if key was not found
+          if (err.toString().indexOf('NotFoundError: Key not found in database') === -1)
+            return reject(err)
+        }
+        resolve()
       })
     })
   }
 
   // Load cache from a persisted file
-  load() {
-    this._cache = {}
+  async load() {
     return new Promise((resolve, reject) => {
-      this._store.exists(this.filename, (err, exists) => {
-        if (err || !exists) {
-          return resolve()
-        }
-
-        this._lock(this.filename, (release) => {
-          pull(
-            this._store.read(this.filename),
-            pull.collect(release((err, res) => {
-              if (err) {
-                return reject(err)
-              }
-
-              try {
-                this._cache = JSON.parse(Buffer.concat(res).toString() || '{}')
-              } catch(e) {
-                return reject(e)
-              }
-
-              resolve()
-            }))
-          )
-        })
+      if (mkdirp.sync) mkdirp.sync(this.path)
+      level(this.path, (err, db) => {
+        this._store = db
+        resolve()
       })
-    })
-  }
-
-  reset() {
-    this._cache = {}
-    this._store = null
+     })
   }
 }
 
