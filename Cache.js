@@ -32,7 +32,9 @@ class Cache {
   }
 
   async close () {
-    await this._store.close()
+    if (this._store) 
+      await this._store.close()
+
     this._store = null
   }
 
