@@ -82,7 +82,8 @@ class Cache {
   // Load cache from a persisted file
   async load() {
     return new Promise((resolve, reject) => {
-      if (mkdirp.sync) mkdirp.sync(this.path)
+      // Check if we have mkdirp
+      if (mkdirp && mkdirp.sync) mkdirp.sync(this.path)
       level(this.path, (err, db) => {
         this._store = db
         resolve()
