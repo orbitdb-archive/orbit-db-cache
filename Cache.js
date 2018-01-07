@@ -2,6 +2,10 @@
 
 const path = require('path')
 
+const Logger = require('logplease')
+const logger = Logger.create('cache', { color: Logger.Colors.Magenta })
+Logger.setLogLevel('ERROR')
+
 let caches = {}
 
 class Cache {
@@ -12,7 +16,9 @@ class Cache {
   }
 
   // Setup storage backend
-  async open() {
+  async open () {
+    logger.debug('open', this.path)
+
     if (this.store)
       return Promise.resolve()
 
@@ -29,6 +35,8 @@ class Cache {
   }
 
   async close () {
+    logger.debug('close', this.path)
+
     if (!this._store)
       return Promise.resolve()
 
@@ -45,6 +53,8 @@ class Cache {
   }
 
   async destroy () {
+    logger.debug('destroy', this.path)
+
     return new Promise((resolve, reject) => {
       this._storage.destroy(this.path, (err) => {
         if (err) {
@@ -55,9 +65,12 @@ class Cache {
     })
   }
 
-  async get(key) {
+  async get (key) {
     if (!this._store)
       await this.open()
+
+    if ( this._store.status !== 'open')
+      return Promise.resolve(null)
 
     return new Promise((resolve, reject) => {
       this._store.get(key, (err, value) => {
@@ -73,9 +86,12 @@ class Cache {
   }
 
   // Set value in the cache and return the new value
-  async set(key, value) {
+  async set (key, value) {
     if (!this._store)
       await this.open()
+
+    if ( this._store.status !== 'open')
+      return Promise.resolve()
 
     return new Promise((resolve, reject) => {
       this._store.put(key, JSON.stringify(value), (err) => {
@@ -112,6 +128,8 @@ class Cache {
 module.exports = (storage, mkdir) => {
   return {
     load: async (directory, dbAddress) => {
+      logger.debug('load, database:', dbAddress.toString())
+
       const dbPath = path.join(dbAddress.root, dbAddress.path)
       const dataPath = path.join(directory, dbPath)
       let cache = caches[dataPath]
@@ -125,6 +143,8 @@ module.exports = (storage, mkdir) => {
       return cache
     },
     close: async () => {
+      logger.debug('close all')
+
       await Promise.all(Object.values(caches), cache => cache.close())
       caches = {}
     },

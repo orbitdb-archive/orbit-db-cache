@@ -12,6 +12,7 @@
   "dependencies": {
     "level-js": "~2.2.4",
     "leveldown": "^1.9.0",
+    "logplease": "^1.2.14",
     "mkdirp": "^0.5.1"
   }
 }
