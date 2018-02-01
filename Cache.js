@@ -69,7 +69,7 @@ class Cache {
     if (!this._store)
       await this.open()
 
-    if ( this._store.status !== 'open')
+    if (this._store.status && this._store.status !== 'open')
       return Promise.resolve(null)
 
     return new Promise((resolve, reject) => {
@@ -90,7 +90,7 @@ class Cache {
     if (!this._store)
       await this.open()
 
-    if ( this._store.status !== 'open')
+    if (this._store.status && this._store.status !== 'open')
       return Promise.resolve()
 
     return new Promise((resolve, reject) => {
