@@ -19,8 +19,9 @@ class Cache {
   async open () {
     logger.debug('open', this.path)
 
-    if (this.store)
+    if (this.store) {
       return Promise.resolve()
+    }
 
     return new Promise((resolve, reject) => {
       const store = this._storage(this.path)
@@ -37,10 +38,11 @@ class Cache {
   async close () {
     logger.debug('close', this.path)
 
-    if (!this._store)
+    if (!this._store) {
       return Promise.resolve()
+    }
 
-    return new Promise(resolve => {
+    return new Promise((resolve, reject) => {
       this._store.close((err) => {
         if (err) {
           return reject(err)
@@ -66,19 +68,22 @@ class Cache {
   }
 
   async get (key) {
-    if (!this._store)
+    if (!this._store) {
       await this.open()
+    }
 
-    if (this._store.status && this._store.status !== 'open')
+    if (this._store.status && this._store.status !== 'open') {
       return Promise.resolve(null)
+    }
 
     return new Promise((resolve, reject) => {
       this._store.get(key, (err, value) => {
         if (err) {
           // Ignore error if key was not found
-          if (err.toString().indexOf('NotFoundError: Key not found in database') === -1
-            && err.toString().indexOf('NotFound') === -1)
+          if (err.toString().indexOf('NotFoundError: Key not found in database') === -1 &&
+            err.toString().indexOf('NotFound') === -1) {
             return reject(err)
+          }
         }
         resolve(value ? JSON.parse(value) : null)
       })
@@ -87,19 +92,22 @@ class Cache {
 
   // Set value in the cache and return the new value
   async set (key, value) {
-    if (!this._store)
+    if (!this._store) {
       await this.open()
+    }
 
-    if (this._store.status && this._store.status !== 'open')
+    if (this._store.status && this._store.status !== 'open') {
       return Promise.resolve()
+    }
 
     return new Promise((resolve, reject) => {
       this._store.put(key, JSON.stringify(value), (err) => {
         if (err) {
           // Ignore error if key was not found
-          if (err.toString().indexOf('NotFoundError: Key not found in database') === -1
-            && err.toString().indexOf('NotFound') === -1)
+          if (err.toString().indexOf('NotFoundError: Key not found in database') === -1 &&
+            err.toString().indexOf('NotFound') === -1) {
             return reject(err)
+          }
         }
         resolve()
       })
@@ -108,16 +116,18 @@ class Cache {
 
   // Remove a value and key from the cache
   async del (key) {
-    if (!this._store)
+    if (!this._store) {
       await this.open()
+    }
 
     return new Promise((resolve, reject) => {
       this._store.del(key, (err) => {
         if (err) {
           // Ignore error if key was not found
-          if (err.toString().indexOf('NotFoundError: Key not found in database') === -1
-            && err.toString().indexOf('NotFound') === -1)
+          if (err.toString().indexOf('NotFoundError: Key not found in database') === -1 &&
+            err.toString().indexOf('NotFound') === -1) {
             return reject(err)
+          }
         }
         resolve()
       })
@@ -134,8 +144,9 @@ module.exports = (storage, mkdir) => {
       const dataPath = path.join(directory, dbPath)
       let cache = caches[dataPath]
       if (!cache) {
-        if (mkdir && mkdir.sync) 
+        if (mkdir && mkdir.sync) {
           mkdir.sync(dataPath)
+        }
         cache = new Cache(storage, dataPath)
         await cache.open()
         caches[dataPath] = cache
@@ -147,6 +158,6 @@ module.exports = (storage, mkdir) => {
 
       await Promise.all(Object.values(caches), cache => cache.close())
       caches = {}
-    },
+    }
   }
 }
