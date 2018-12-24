@@ -1,42 +1,51 @@
-## orbit-db-cache
+# orbit-db-cache
+
+
+> Local cache for orbit-db
 
 Isomorphic cache used by `orbit-db`, implemented using `level.js` (indexedDB) for the browser and `leveldown` (leveldb) for node.
 
-### Used in
+## Install
 
-* [orbit-db](https://github/com/orbitdb/orbit-db)
+This project uses [npm](https://npmjs.com) and [nodejs](https://nodejs.org)
 
-### API
+```sh
+npm install --save orbit-db-cache
+```
 
-#### Public methods
+## API
 
-##### `open`
+### Public methods
+
+#### `open`
 
 Open cache store and make it available to be used (indexedDB or leveldb)
 
-##### `close`
+#### `close`
 
 Close cache store and the underlying indexedDB / leveldb instance
 
-##### `destroy`
+#### `destroy`
 
 Completely remove an existing store and deletes the locally persisted cache
 
-##### `get`
+#### `get`
 
 Get an item from the cache store
 
-##### `set`
+#### `set`
 
 Set a value for a given key on the cache store
 
-##### `del`
+#### `del`
 
 Remove a given key-value from the cache store
 
 ## Contributing
 
-See [orbit-db's contributing guideline](https://github.com/orbitdb/orbit-db#contributing).
+If you think this could be better, please [open an issue](https://github.com/orbitdb/repo-template/issues/new)!
+
+Please note that all interactions in @orbitdb fall under our [Code of Conduct](CODE_OF_CONDUCT.md).
 
 ## License
 
