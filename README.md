@@ -1,12 +1,22 @@
-## orbit-db-cache
+# orbit-db-cache
+
+[![Gitter](https://img.shields.io/gitter/room/nwjs/nw.js.svg)](https://gitter.im/orbitdb/Lobby) [![npm version](https://badge.fury.io/js/orbit-db-cache.svg)](https://www.npmjs.com/package/orbit-db-cache) [![node](https://img.shields.io/node/v/orbit-db-cache.svg)](https://www.npmjs.com/package/orbit-db-cache)
+
+> Local cache for orbit-db
 
 Isomorphic cache used by `orbit-db`, implemented using `level.js` (indexedDB) for the browser and `leveldown` (leveldb) for node.
 
-### Used in
+This prohect is used in: [orbit-db](https://github/com/orbitdb/orbit-db).
 
-* [orbit-db](https://github/com/orbitdb/orbit-db)
+## Install
 
-### API
+This project uses [npm](https://npmjs.com) and [nodejs](https://nodejs.org)
+
+```sh
+npm install --save orbit-db-cache
+```
+
+## API
 
 #### Public methods
 
@@ -36,7 +46,9 @@ Remove a given key-value from the cache store
 
 ## Contributing
 
-See [orbit-db's contributing guideline](https://github.com/orbitdb/orbit-db#contributing).
+If you think this could be better, please [open an issue](https://github.com/orbitdb/orbit-db-cache/issues/new)!
+
+Please note that all interactions in @orbitdb fall under our [Code of Conduct](CODE_OF_CONDUCT.md).
 
 ## License
 

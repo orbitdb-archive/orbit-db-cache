@@ -2,6 +2,13 @@
   "name": "orbit-db-cache",
   "version": "0.2.4",
   "description": "Local cache for orbit-db",
+  "keywords": [
+    "orbit",
+    "orbitdb",
+    "cache"
+  ],
+  "homepage": "https://github.com/orbitdb/orbit-db-cache",
+  "bugs": "https://github.com/orbitdb/orbit-db-cache/issues",
   "main": "index-nodejs.js",
   "browser": "index-browser.js",
   "scripts": {
@@ -9,6 +16,12 @@
     "lint": "standard --env=mocha"
   },
   "author": "Haad",
+  "contributors": [
+    "adam-palazzo",
+    "mistakia",
+    "RichardLitt",
+    "thiagodelgado111"
+  ],
   "license": "MIT",
   "dependencies": {
     "level-js": "~3.0.0",
