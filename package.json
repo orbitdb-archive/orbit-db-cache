@@ -1,6 +1,6 @@
 {
   "name": "orbit-db-cache",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "description": "Local cache for orbit-db",
   "keywords": [
     "orbit",
@@ -24,9 +24,9 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "level-js": "~3.0.0",
-    "leveldown": "~3.0.2",
-    "logplease": "^1.2.14",
+    "level-js": "~4.0.1",
+    "leveldown": "~5.0.3",
+    "logplease": "~1.2.15",
     "mkdirp": "^0.5.1"
   },
   "devDependencies": {
