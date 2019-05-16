@@ -9,11 +9,15 @@
   ],
   "homepage": "https://github.com/orbitdb/orbit-db-cache",
   "bugs": "https://github.com/orbitdb/orbit-db-cache/issues",
-  "main": "index-nodejs.js",
-  "browser": "index-browser.js",
+  "main": "src/Cache.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "standard --env=mocha"
+    "test": "npm run test:node && npm run test:browser",
+    "test:node": "TEST=all mocha",
+    "test:browser": "npm run build:tests && mocha-headless-chrome -f ./test/browser/index.html -a no-sandbox",
+    "build": "webpack --config ./conf/webpack.config.js",
+    "build:tests": "webpack --config ./conf/webpack.tests.config.js --mode production",
+    "lint": "standard --env=mocha",
+    "lint:fix": "standard --fix"
   },
   "author": "Haad",
   "contributors": [
@@ -22,14 +26,30 @@
     "RichardLitt",
     "thiagodelgado111"
   ],
+  "standard": {
+    "env": [
+      "mocha"
+    ]
+  },
   "license": "MIT",
   "dependencies": {
-    "level-js": "~4.0.1",
-    "leveldown": "~5.0.3",
     "logplease": "~1.2.15",
-    "mkdirp": "^0.5.1"
+    "mkdirp": "^0.5.1",
+    "orbit-db-storage-adapter": "^0.4.1"
   },
   "devDependencies": {
-    "standard": "^12.0.1"
+    "@babel/core": "^7.5.5",
+    "@babel/plugin-syntax-object-rest-spread": "^7.2.0",
+    "@babel/plugin-transform-modules-commonjs": "^7.5.0",
+    "@babel/plugin-transform-runtime": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
+    "@babel/runtime": "^7.5.5",
+    "mocha": "^6.2.0",
+    "mocha-headless-chrome": "^2.0.3",
+    "orbit-db-test-utils": "^0.7.0",
+    "sqlite3": "^4.0.9",
+    "standard": "^12.0.1",
+    "webpack": "^4.39.0",
+    "webpack-cli": "^3.3.6"
   }
 }

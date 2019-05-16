@@ -6,7 +6,7 @@
 
 Isomorphic cache used by `orbit-db`, implemented using `level.js` (indexedDB) for the browser and `leveldown` (leveldb) for node.
 
-This prohect is used in: [orbit-db](https://github/com/orbitdb/orbit-db).
+This project is used in: [orbit-db](https://github.com/orbitdb/orbit-db).
 
 ## Install
 
@@ -19,18 +19,6 @@ npm install --save orbit-db-cache
 ## API
 
 #### Public methods
-
-##### `open`
-
-Open cache store and make it available to be used (indexedDB or leveldb)
-
-##### `close`
-
-Close cache store and the underlying indexedDB / leveldb instance
-
-##### `destroy`
-
-Completely remove an existing store and deletes the locally persisted cache
 
 ##### `get`
 
