@@ -6,7 +6,7 @@
 
 Isomorphic cache used by `orbit-db`, implemented using `level.js` (indexedDB) for the browser and `leveldown` (leveldb) for node.
 
-This project is used in: [orbit-db](https://github/com/orbitdb/orbit-db).
+This project is used in: [orbit-db](https://github.com/orbitdb/orbit-db).
 
 ## Install
 
