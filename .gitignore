@@ -1,1 +1,4 @@
-node_modules/
+dump.rdb
+orbitdb.json
+node_modules
+redis-stable*

@@ -20,18 +20,6 @@ npm install --save orbit-db-cache
 
 #### Public methods
 
-##### `open`
-
-Open cache store and make it available to be used (indexedDB or leveldb)
-
-##### `close`
-
-Close cache store and the underlying indexedDB / leveldb instance
-
-##### `destroy`
-
-Completely remove an existing store and deletes the locally persisted cache
-
 ##### `get`
 
 Get an item from the cache store
