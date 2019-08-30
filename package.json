@@ -1,6 +1,6 @@
 {
   "name": "orbit-db-cache",
-  "version": "0.2.5",
+  "version": "0.3.0-rc1",
   "description": "Local cache for orbit-db",
   "keywords": [
     "orbit",
