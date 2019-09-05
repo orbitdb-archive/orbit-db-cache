@@ -1,6 +1,6 @@
 {
   "name": "orbit-db-cache",
-  "version": "0.3.0-rc1",
+  "version": "0.3.0-rc2",
   "description": "Local cache for orbit-db",
   "keywords": [
     "orbit",
@@ -33,9 +33,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "logplease": "~1.2.15",
-    "mkdirp": "^0.5.1",
-    "orbit-db-storage-adapter": "^0.4.1"
+    "logplease": "~1.2.15"
   },
   "devDependencies": {
     "@babel/core": "^7.5.5",
@@ -50,6 +48,7 @@
     "sqlite3": "^4.0.9",
     "standard": "^12.0.1",
     "webpack": "^4.39.0",
-    "webpack-cli": "^3.3.6"
+    "webpack-cli": "^3.3.6",
+    "orbit-db-storage-adapter": "^0.5.0"
   }
 }
