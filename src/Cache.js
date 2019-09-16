@@ -44,7 +44,7 @@ class Cache {
   }
 
   // Set value in the cache and return the new value
-  async set (key, value) {
+  set (key, value) {
     return new Promise((resolve, reject) => {
       this._store.put(key, JSON.stringify(value), (err) => {
         if (err) {
@@ -65,7 +65,7 @@ class Cache {
 
   // Remove a value and key from the cache
   async del (key) {
-    return new Promise(async (resolve, reject) => {
+    return new Promise((resolve, reject) => {
       this._store.del(key, (err) => {
         if (err) {
           // Ignore error if key was not found
