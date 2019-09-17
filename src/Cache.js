@@ -12,6 +12,11 @@ class Cache {
 
   get status () { return this._store.db.status }
 
+  async removeHandler (address) {
+    if (this.handlers.has(address)) this.handlers.delete(address)
+    if (!this.handlers.size) await this.close()
+  }
+
   async close () {
     if (!this._store) return Promise.reject(new Error('No cache store found to close'))
     if (this.status === 'open') {
