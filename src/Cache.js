@@ -7,31 +7,9 @@ Logger.setLogLevel('ERROR')
 class Cache {
   constructor (store) {
     this._store = store
-    this.handlers = new Set()
   }
 
-  get status () { return this._store.db.status }
-
-  async removeHandler (address) {
-    if (this.handlers.has(address)) this.handlers.delete(address)
-    if (!this.handlers.size) await this.close()
-  }
-
-  async close () {
-    if (!this._store) return Promise.reject(new Error('No cache store found to close'))
-    if (this.status === 'open') {
-      await this._store.close()
-      return Promise.resolve()
-    }
-  }
-
-  async open () {
-    if (!this._store) return Promise.reject(new Error('No cache store found to open'))
-    if (this.status !== 'open') {
-      await this._store.open()
-      return Promise.resolve()
-    }
-  }
+  async close () { await this._store.close() }
 
   async get (key) {
     return new Promise((resolve, reject) => {
