@@ -53,7 +53,7 @@ class Cache {
             return reject(err)
           }
         }
-        logger.debug(`cache: Set ${key} to ${value}`)
+        logger.debug(`cache: Set ${key} to ${JSON.stringify(value)}`)
         resolve()
       })
     })
