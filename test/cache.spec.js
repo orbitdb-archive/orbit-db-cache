@@ -2,7 +2,7 @@ const assert = require('assert')
 
 const Storage = require('orbit-db-storage-adapter')
 const Cache = require('../src/Cache')
-const { implementations } = require('orbit-db-test-utils')
+const implementations = require('orbit-db-storage-adapter/test/implementations')
 const timeout = 50000
 
 implementations.forEach(implementation => {
