@@ -16,7 +16,7 @@ module.exports = {
   plugins: [
     new webpack.DefinePlugin({
       'process.env': {
-        'NODE_ENV': JSON.stringify(process.env.NODE_ENV)
+        NODE_ENV: JSON.stringify(process.env.NODE_ENV)
       }
     }),
     new webpack.IgnorePlugin(/mongo|redis/)
@@ -27,7 +27,7 @@ module.exports = {
     runtimejs: '{}',
     net: '{}',
     tls: '{}',
-    'child_process': {},
+    child_process: {},
     dns: '{}'
     // path: '{}',
     // "node-gyp-build": '{}'

@@ -11,8 +11,8 @@ implementations.forEach(implementation => {
 
     let cache, storage, store
 
-    let location = implementation.fileName
-    let server = implementation.server
+    const location = implementation.fileName
+    const server = implementation.server
 
     const data = [
       { type: (typeof true), key: 'boolean', value: true },
@@ -23,7 +23,7 @@ implementations.forEach(implementation => {
     ]
 
     before(async () => {
-      let storageType = implementation.module
+      const storageType = implementation.module
       if (server && server.start) await implementation.server.start({})
       storage = Storage(storageType)
       store = await storage.createStore(location, implementation.defaultOptions || {})
