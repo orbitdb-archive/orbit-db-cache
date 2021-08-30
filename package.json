@@ -7,6 +7,10 @@
     "orbitdb",
     "cache"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/orbitdb/orbit-db-cache.git",
+  },
   "homepage": "https://github.com/orbitdb/orbit-db-cache",
   "bugs": "https://github.com/orbitdb/orbit-db-cache/issues",
   "main": "src/Cache.js",
