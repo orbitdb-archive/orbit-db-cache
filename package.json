@@ -28,7 +28,8 @@
     "adam-palazzo",
     "mistakia",
     "RichardLitt",
-    "thiagodelgado111"
+    "thiagodelgado111",
+    "CSDUMMI"
   ],
   "standard": {
     "env": [
@@ -53,7 +54,7 @@
     "memdown": "^6.0.0",
     "mocha": "^8.4.0",
     "mocha-headless-chrome": "^3.1.0",
-    "orbit-db-storage-adapter": "^0.6.0",
+    "orbit-db-storage-adapter": "^0.7.0",
     "orbit-db-test-utils": "^1.0.2",
     "sqlite3": "^5.0.2",
     "standard": "^16.0.3",
