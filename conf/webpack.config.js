@@ -11,15 +11,10 @@ module.exports = {
     filename: '../dist/orbit-db-cache.min.js'
   },
   target: 'web',
-  devtool: 'none',
+  devtool: 'source-map',
   externals: {
     fs: '{}',
     mkdirp: '{}'
-  },
-  node: {
-    console: false,
-    Buffer: true,
-    mkdirp: 'empty'
   },
   plugins: [
     new webpack.DefinePlugin({
@@ -42,6 +37,7 @@ module.exports = {
       'node_modules',
       path.resolve(__dirname, '../node_modules')
     ],
-    moduleExtensions: ['-loader']
+    extensions: ['.js', '.json'],
+    mainFields: ['loader', 'main']
   }
 }

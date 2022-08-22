@@ -19,7 +19,14 @@ module.exports = {
         NODE_ENV: JSON.stringify(process.env.NODE_ENV)
       }
     }),
-    new webpack.IgnorePlugin(/mongo|redis/)
+    new webpack.IgnorePlugin({
+      resourceRegExp: /mongo|redis/,
+      contextRegExp: /mongo|redis/
+    }),
+    new webpack.ProvidePlugin({
+      process: 'process/browser',
+      Buffer: ['buffer', 'Buffer']
+    })
   ],
   externals: {
     fs: '{}',
@@ -36,14 +43,21 @@ module.exports = {
     modules: [
       'node_modules',
       path.resolve(__dirname, '../node_modules')
-    ]
+    ],
+    fallback: {
+      assert: require.resolve('assert'),
+      path: require.resolve('path-browserify'),
+      util: require.resolve('util'),
+      os: false
+    }
   },
   resolveLoader: {
     modules: [
       'node_modules',
       path.resolve(__dirname, '../node_modules')
     ],
-    moduleExtensions: ['-loader']
+    extensions: ['.js', '.json'],
+    mainFields: ['loader', 'main']
   },
   module: {
     rules: [
