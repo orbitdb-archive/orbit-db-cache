@@ -1,10 +1,10 @@
 'use strict'
 
-const Logger = require('logplease')
+import Logger from 'logplease'
 const logger = Logger.create('cache', { color: Logger.Colors.Magenta })
 Logger.setLogLevel('ERROR')
 
-class Cache {
+export default class Cache {
   constructor (store) {
     this._store = store
   }
@@ -50,5 +50,3 @@ class Cache {
     await this._store.del(key)
   }
 }
-
-module.exports = Cache

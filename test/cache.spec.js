@@ -1,11 +1,12 @@
-const assert = require('assert')
+import assert from 'assert'
+import Storage from 'orbit-db-storage-adapter'
+import Cache from '../src/Cache.js'
 
-const Storage = require('orbit-db-storage-adapter')
-const Cache = require('../src/Cache')
-const implementations = require('orbit-db-storage-adapter/test/implementations')
 const timeout = 50000
 
-implementations.forEach(implementation => {
+const implementations = (await import('orbit-db-storage-adapter/test/implementations/index.js')).default
+
+for (const implementation of implementations) {
   describe(`Cache - ${implementation.key}`, function () {
     this.timeout(timeout)
 
@@ -17,7 +18,7 @@ implementations.forEach(implementation => {
     const data = [
       { type: (typeof true), key: 'boolean', value: true },
       { type: (typeof 1.0), key: 'number', value: 9000 },
-      { type: (typeof 'x'), key: 'strng', value: 'string value' },
+      { type: (typeof 'x'), key: 'string', value: 'string value' },
       { type: (typeof []), key: 'array', value: [1, 2, 3, 4] },
       { type: (typeof {}), key: 'object', value: { object: 'object', key: 'key' } }
     ]
@@ -75,4 +76,4 @@ implementations.forEach(implementation => {
       })
     })
   })
-})
+}

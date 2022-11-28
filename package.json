@@ -2,6 +2,7 @@
   "name": "orbit-db-cache",
   "version": "0.4.1",
   "description": "Local cache for orbit-db",
+  "type": "module",
   "keywords": [
     "orbit",
     "orbitdb",
@@ -19,7 +20,7 @@
     "test:node": "TEST=all mocha",
     "test:browser": "npm run build:tests && mocha-headless-chrome -f ./test/browser/index.html -a no-sandbox",
     "build": "webpack --config ./conf/webpack.config.js",
-    "build:tests": "webpack --config ./conf/webpack.tests.config.js --mode production",
+    "build:tests": "webpack --config ./conf/webpack.tests.config.js",
     "lint": "standard --env=mocha",
     "lint:fix": "standard --fix"
   },
