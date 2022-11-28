@@ -22,15 +22,12 @@ export default (env, argv) => {
     },
     plugins: [
       new webpack.DefinePlugin({
-        'process.env': {
-          NODE_ENV: JSON.stringify(process.env.NODE_ENV)
-        }
+        'process.env.NODE_ENV': JSON.stringify('production')
       })
     ],
     resolve: {
       modules: [
-        'node_modules',
-        path.resolve(__dirname, '../node_modules')
+        'node_modules'
       ],
       alias: {
         leveldown: 'level-js'

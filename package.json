@@ -19,7 +19,8 @@
     "test": "npm run test:node && npm run test:browser",
     "test:node": "TEST=all mocha",
     "test:browser": "npm run build:tests && mocha-headless-chrome -f ./test/browser/index.html -a no-sandbox",
-    "build": "webpack --config ./conf/webpack.config.js",
+    "build:types": "npx -p typescript tsc src/*.js --declaration --allowJs --emitDeclarationOnly --outDir dist/types/src",
+    "build": "webpack --config ./conf/webpack.config.js && npm run build:types",
     "build:tests": "webpack --config ./conf/webpack.tests.config.js",
     "lint": "standard --env=mocha",
     "lint:fix": "standard --fix"
