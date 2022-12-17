@@ -19,8 +19,9 @@
     "test": "npm run test:node && npm run test:browser",
     "test:node": "TEST=all mocha",
     "test:browser": "npm run build:tests && mocha-headless-chrome -f ./test/browser/index.html -a no-sandbox",
-    "build": "webpack --config ./conf/webpack.config.js",
-    "build:tests": "webpack --config ./conf/webpack.tests.config.js",
+    "build": "npm run build:dist",
+    "build:dist": "webpack --config ./conf/webpack.config.js --mode production",
+    "build:tests": "webpack --config ./conf/webpack.tests.config.js --mode production",
     "lint": "standard --env=mocha",
     "lint:fix": "standard --fix"
   },

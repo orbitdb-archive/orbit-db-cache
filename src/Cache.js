@@ -1,5 +1,3 @@
-'use strict'
-
 import Logger from 'logplease'
 const logger = Logger.create('cache', { color: Logger.Colors.Magenta })
 Logger.setLogLevel('ERROR')
