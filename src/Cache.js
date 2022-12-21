@@ -29,7 +29,7 @@ export default class Cache {
     try {
       return JSON.parse(await this._store.get(key))
     } catch (e) {
-      if (e.code === 'LEVEL_NOT_FOUND') return null
+      if (e.code === 'LEVEL_NOT_FOUND' || (e.cause !== undefined && e.cause.code === 'LEVEL_NOT_FOUND')) return null
       throw e
     }
   }
