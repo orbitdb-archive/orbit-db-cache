@@ -7,7 +7,7 @@ export default class Cache {
     this._store = store
   }
 
-  get status () { return this._store.db.status }
+  get status () { return this._store.status }
 
   async close () {
     if (!this._store) throw new Error('No cache store found to close')
