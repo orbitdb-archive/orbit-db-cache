@@ -54,7 +54,7 @@
     "memdown": "^6.0.0",
     "mocha": "^10.0.0",
     "mocha-headless-chrome": "^4.0.0",
-    "orbit-db-storage-adapter": "github:haydenyoung/orbit-db-storage-adapter#esm",
+    "orbit-db-storage-adapter": "github:orbitdb/orbit-db-storage-adapter#esm",
     "path-browserify": "^1.0.1",
     "process": "^0.11.10",
     "sqlite3": "^5.0.2",
