@@ -1,15 +1,13 @@
-'use strict'
-
-const Logger = require('logplease')
+import Logger from 'logplease'
 const logger = Logger.create('cache', { color: Logger.Colors.Magenta })
 Logger.setLogLevel('ERROR')
 
-class Cache {
+export default class Cache {
   constructor (store) {
     this._store = store
   }
 
-  get status () { return this._store.db.status }
+  get status () { return this._store.status }
 
   async close () {
     if (!this._store) throw new Error('No cache store found to close')
@@ -31,7 +29,7 @@ class Cache {
     try {
       return JSON.parse(await this._store.get(key))
     } catch (e) {
-      if (e.code === 'LEVEL_NOT_FOUND') return null
+      if (e.code === 'LEVEL_NOT_FOUND' || (e.cause !== undefined && e.cause.code === 'LEVEL_NOT_FOUND')) return null
       throw e
     }
   }
@@ -50,5 +48,3 @@ class Cache {
     await this._store.del(key)
   }
 }
-
-module.exports = Cache
