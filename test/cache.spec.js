@@ -7,7 +7,7 @@ const timeout = 50000
 it('dummy', async () => {
 })
 
-const implementations = await (await import('orbit-db-storage-adapter/test/implementations/index.js')).default
+const implementations = await (await import('orbit-db-storage-adapter/test/implementations/index.js')).default()
 
 for (const implementation of implementations) {
   describe(`Cache - ${implementation.key}`, function () {
