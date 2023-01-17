@@ -1,22 +1,30 @@
+import { Level } from 'level'
+import { MemoryLevel } from 'memory-level'
 import assert from 'assert'
-import Storage from 'orbit-db-storage-adapter'
 import Cache from '../src/Cache.js'
 
 const timeout = 50000
 
-it('dummy', async () => {
-})
-
-const implementations = await (await import('orbit-db-storage-adapter/test/implementations/index.js')).default()
+const implementations = [
+  {
+    key: 'level',
+    location: 'orbitdb',
+    module: Level
+  },
+  {
+    key: 'memory-level',
+    module: MemoryLevel
+  }
+]
 
 for (const implementation of implementations) {
   describe(`Cache - ${implementation.key}`, function () {
     this.timeout(timeout)
 
-    let cache, storage, store
+    let cache, store
 
-    const location = implementation.fileName
-    const server = implementation.server
+    const StorageType = implementation.module
+    const location = implementation.location
 
     const data = [
       { type: (typeof true), key: 'boolean', value: true },
@@ -27,21 +35,20 @@ for (const implementation of implementations) {
     ]
 
     before(async () => {
-      const storageType = implementation.module
-      if (server && server.start) await implementation.server.start({})
-      storage = Storage(storageType)
-      store = await storage.createStore(location, implementation.defaultOptions || {})
-      cache = new Cache(store)
-    })
+      if (implementation.location) {
+        store = new StorageType(implementation.location, implementation.defaultOptions || {})
+      } else {
+        store = new StorageType(implementation.defaultOptions || {})
+      }
 
-    afterEach(async () => {
-      if (server && server.afterEach) await implementation.server.afterEach()
+      cache = new Cache(store)
     })
 
     after(async () => {
       await store.close()
-      await storage.destroy(store)
-      if (server && server.stop) await implementation.server.stop()
+      if (location) {
+        await StorageType.destroy(location)
+      }
     })
 
     data.forEach(d => {
