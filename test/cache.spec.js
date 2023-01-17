@@ -21,9 +21,8 @@ for (const implementation of implementations) {
   describe(`Cache - ${implementation.key}`, function () {
     this.timeout(timeout)
 
-    let cache, storage, store
+    let cache, store
 
-    const server = implementation.server
     const StorageType = implementation.module
     const location = implementation.location
 
@@ -36,8 +35,6 @@ for (const implementation of implementations) {
     ]
 
     before(async () => {
-      if (server && server.start) await implementation.server.start({})
-
       if (implementation.location) {
         store = new StorageType(implementation.location, implementation.defaultOptions || {})
       } else {
@@ -47,14 +44,11 @@ for (const implementation of implementations) {
       cache = new Cache(store)
     })
 
-    afterEach(async () => {
-      if (server && server.afterEach) await implementation.server.afterEach()
-    })
-
     after(async () => {
-      await store.close()  
-      location !== undefined && await StorageType.destroy(location)
-      if (server && server.stop) await implementation.server.stop()
+      await store.close()
+      if (location) {
+        await StorageType.destroy(location)
+      }
     })
 
     data.forEach(d => {
