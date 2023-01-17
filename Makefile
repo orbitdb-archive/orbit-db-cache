@@ -20,7 +20,7 @@ clean:
 	rm -rf redis-stable/
 
 clean-dependencies: clean
-	rm -f package-lock.json;
+	rm -f package-lock.json
 
 rebuild: | clean-dependencies build
 
